@@ -1,0 +1,10 @@
+/src/JwtSwaggerExt/JwtSwaggerExt/bin
+# compiled files
+obj
+bin
+# user files
+.user
+.suo
+/src/JwtSwaggerExt/.vs/JwtSwaggerExt
+/src/JwtSwaggerExt/JwtSwaggerExt/JwtSwaggerExt.csproj.user
+/.vs
