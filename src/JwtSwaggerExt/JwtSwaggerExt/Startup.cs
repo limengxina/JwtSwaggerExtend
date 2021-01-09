@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreSwagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ namespace JwtSwaggerExt
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerPack();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +39,16 @@ namespace JwtSwaggerExt
 
             app.UseRouting();
 
+            // 请求错误提示配置
+            app.UseErrorHandling();
+
+            //使用身份验证
+            app.UseAuthentication();
+
+            //使用授权
             app.UseAuthorization();
+
+            app.UseSwaggerPack();
 
             app.UseEndpoints(endpoints =>
             {

@@ -4,5 +4,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+    <DocumentationFile>xml\JwtSwaggerExt.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="xml\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreSwagger\CoreSwagger.csproj" />
+  </ItemGroup>
+
 
 </Project>

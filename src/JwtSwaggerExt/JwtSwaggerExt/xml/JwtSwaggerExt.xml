@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JwtSwaggerExt</name>
+    </assembly>
+    <members>
+        <member name="M:JwtSwaggerExt.Controllers.OauthController.GetToken(System.String)">
+            <summary>
+            获取token
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JwtSwaggerExt.Controllers.OauthController.GetUser(System.String)">
+            <summary>
+            解析token
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JwtSwaggerExt.Controllers.TestController.GetWeather">
+            <summary>
+            需要授权的接口
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
