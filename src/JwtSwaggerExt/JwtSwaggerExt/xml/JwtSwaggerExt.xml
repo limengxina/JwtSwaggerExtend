@@ -24,5 +24,23 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:JwtSwaggerExt.Controllers.TestController.CreateId">
+            <summary>
+            产生唯一有序短id
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JwtSwaggerExt.Controllers.TestController.GetCalendar(System.String)">
+            <summary>
+            获取日期信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:JwtSwaggerExt.Controllers.TestController.GetPath">
+            <summary>
+            获取目录
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

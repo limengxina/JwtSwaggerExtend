@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CoreUlitity.Systems;
+using CoreUlitity.Security;
+using CoreUlitity.DateTimeExt;
 
 namespace JwtSwaggerExt.Controllers
 {
@@ -13,6 +16,12 @@ namespace JwtSwaggerExt.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
+        private RsaKey GetRsaKey()
+        {
+            RsaKey rsaKey = RsaCrypt.GenerateRsaKeys();// 生成RSA密钥对
+            return rsaKey;
+        }
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -38,6 +47,79 @@ namespace JwtSwaggerExt.Controllers
             return list;
         }
 
+        /// <summary>
+        /// 产生唯一有序短id
+        /// </summary>
+        /// <returns></returns>
+        [Route("CreateId")]
+        [HttpGet]
+        public List<string> CreateId()
+        {
+            var set = new HashSet<string>();
+            for (int i = 0; i < 100; i++)
+            {
+                set.Add(SnowFlake.GetInstance().GetUniqueId());
+            }
+
+            return set.ToList();
+        }
+
+        /// <summary>
+        /// 获取日期信息
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetCalendar")]
+        [HttpGet]
+        public object GetCalendar(string date="2021-01-01")
+        {
+            ChineseCalendar today = new ChineseCalendar(DateTime.Parse(date));
+            return  new
+            {
+                ChineseDateString = today.ChineseDateString,
+                AnimalString = today.AnimalString,
+                GanZhiDateString = today.GanZhiDateString,
+                DateHoliday = today.DateHoliday,
+            };
+        }
+
+        [Route("GetRsaEncrypt")]
+        [HttpGet]
+        public object GetRsaEncrypt(string encryptStr="123456")
+        {
+            var md5 = encryptStr.MDString();
+            var aes = encryptStr.AESEncrypt();
+            var des = encryptStr.DesEncrypt();
+            var hashEncod = encryptStr.HashEncoding();
+
+
+            string encrypt = encryptStr.RSAEncrypt(GetRsaKey().PublicKey);// 公钥加密
+
+            return new
+            {
+                rsaEncrypt = encrypt,
+                md5 = md5,
+                aes = aes,
+                des = des,
+                hashEncod = hashEncod
+            };
+        }
+
+        [Route("GetRsaDecrypt")]
+        [HttpGet]
+        public object GetRsaDecrypt(string encryptStr)
+        {
+            string decrypt = encryptStr.RSADecrypt(GetRsaKey().PrivateKey);// 私钥解密
+
+            return new
+            {
+                decrypt = decrypt
+            };
+        }
+
+        /// <summary>
+        /// 获取目录
+        /// </summary>
+        /// <returns></returns>
         [Route("GetPath")]
         [HttpGet]
         public object GetPath()
